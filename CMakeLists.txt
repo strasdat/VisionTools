@@ -18,26 +18,11 @@ IF (CMAKE_COMPILER_IS_GNUCXX )
 ENDIF()
 
 
-SET (INCLUDE_DIRS "../eigen3.1/"
-                  "../opencv2/include/opencv"
-                  "../opencv2/include/"
-                  "../opencv2/modules/core/include"
-                  "../opencv2/modules/imgproc/include"
-                  "../opencv2/modules/video/include"
-                  "../opencv2/modules/features2d/include"
-                  "../opencv2/modules/flann/include"
-                  "../opencv2/modules/objdetect/include"
-                  "../opencv2/modules/calib3d/include"
-                  "../opencv2/modules/ml/include"
-                  "../opencv2/modules/highgui/include"
-                  "../opencv2/modules/legacy/include"
-                  "../opencv2/modules/contrib/include"
-                  "../Pangolin/"
-                  "../Pangolin/svs_build"
-                  "../Sophus/")
+SET (INCLUDE_DIRS "../include/eigen3"
+                  "../include/")
 
-LIST(APPEND CMAKE_LIBRARY_PATH ../opencv2/svs_build/lib/
-                               ../Pangolin/svs_build/pangolin)
+#LIST(APPEND CMAKE_LIBRARY_PATH ../opencv2/svs_build/lib/
+#                               ../Pangolin/svs_build/pangolin)
 
 SET (LIB_NAMES GL pangolin glut
                opencv_core opencv_features2d opencv_flann opencv_gpu
