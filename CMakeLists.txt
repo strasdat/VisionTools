@@ -27,9 +27,7 @@ FIND_PACKAGE(OpenCV REQUIRED)
 FIND_PACKAGE(Eigen3 REQUIRED)
 LIST(APPEND INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
 
-SET (LIB_NAMES GL pangolin glut
-               opencv_core opencv_features2d opencv_flann opencv_gpu
-               opencv_highgui opencv_imgproc opencv_calib3d)
+SET (LIB_NAMES GL pangolin glut Sophus)
 
 FOREACH(lib ${LIB_NAMES})
   FIND_LIBRARY(LIB_${lib} ${lib})
@@ -65,3 +63,5 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
 ADD_LIBRARY(${PROJECT_NAME} SHARED ${SOURCES})
 
 
+INSTALL(DIRECTORY visiontools DESTINATION ${CMAKE_INSTALL_PREFIX}/include FILES_MATCHING PATTERN "*.h" )
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib )
