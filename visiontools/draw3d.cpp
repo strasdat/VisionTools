@@ -24,6 +24,7 @@
 #include <Eigen/Eigenvalues>
 
 #include <sophus/se3.h>
+#include <sophus/sim3.h>
 
 #include "draw3d.h"
 
@@ -178,6 +179,38 @@ void Draw3d
                axis_angle[0], axis_angle[1], axis_angle[2]);
   }
   double half_size = size*0.5;
+  line(Vector3d(0,0,0), Vector3d(size, 0, 0));
+  line(Vector3d(0,0,0), Vector3d(0, size, 0));
+  line(Vector3d(0,0,0), Vector3d(0, 0, size));
+  line(Vector3d(half_size,half_size,0),
+       Vector3d(-half_size, half_size, 0));
+  line(Vector3d(-half_size,-half_size,0),
+       Vector3d(-half_size, half_size, 0));
+  line(Vector3d(-half_size,-half_size,0),
+       Vector3d(half_size, -half_size, 0));
+  line(Vector3d(half_size,half_size,0),
+       Vector3d(half_size, -half_size, 0));
+  glPopMatrix();
+
+  assert(checkForGlError());
+}
+
+void Draw3d
+::pose(const Sim3 & T_world_from_cam, double size)
+{
+  glPushMatrix();
+  const Vector3d & center = T_world_from_cam.translation();
+
+  glTranslate(center);
+
+  Vector4d axis_angle_scale = T_world_from_cam.scso3().log();
+  double angle = axis_angle_scale.head<3>().norm();
+  if(angle != 0.)
+  {
+    glRotatef(angle * 180.0 / M_PI,
+               axis_angle_scale[0], axis_angle_scale[1], axis_angle_scale[2]);
+  }
+  double half_size = axis_angle_scale[3]*size*0.5;
   line(Vector3d(0,0,0), Vector3d(size, 0, 0));
   line(Vector3d(0,0,0), Vector3d(0, size, 0));
   line(Vector3d(0,0,0), Vector3d(0, 0, size));
