@@ -2,6 +2,9 @@ SET(PROJECT_NAME VisionTools)
 
 PROJECT(${PROJECT_NAME})
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMakeModules/")
+
+SET (OpenCV_DIR ${CMAKE_PREFIX_PATH}/share/OpenCV)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -18,11 +21,11 @@ IF (CMAKE_COMPILER_IS_GNUCXX )
 ENDIF()
 
 
-SET (INCLUDE_DIRS "../include/eigen3"
-                  "../include/")
+SET (INCLUDE_DIRS )
 
-#LIST(APPEND CMAKE_LIBRARY_PATH ../opencv2/svs_build/lib/
-#                               ../Pangolin/svs_build/pangolin)
+FIND_PACKAGE(OpenCV REQUIRED)
+FIND_PACKAGE(Eigen3 REQUIRED)
+LIST(APPEND INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
 
 SET (LIB_NAMES GL pangolin glut
                opencv_core opencv_features2d opencv_flann opencv_gpu
