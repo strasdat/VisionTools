@@ -114,28 +114,65 @@ const VAL &  GET_MAP_ELEM(const KEY & key,
 }
 
 template<class KEY, class VAL, class H, class P, class A>
-void
+bool
 GET_MAP_ELEM_IF_THERE(const KEY & key,
                       const tr1::unordered_map<KEY,VAL,H,P,A> & m,
                       VAL * val)
 {
   typename tr1::unordered_map<KEY,VAL,H,P,A>::const_iterator it
       = m.find(key);
-  if(it!=m.end())
-  {
-    *val = it->second;
-  }
+    if (it!=m.end())
+    {
+      *val = it->second;
+      return true;
+    }
+    return false;
 }
 
 template<class KEY, class VAL, class C, class A>
-void
+bool
 GET_MAP_ELEM_IF_THERE(const KEY & key,
                       const map<KEY,VAL,C,A> & m,
                       VAL * val)
 {
   typename map<KEY,VAL,C,A>::const_iterator it = m.find(key);
   if (it!=m.end())
-    *val == it->second;
+  {
+    *val = it->second;
+    return true;
+  }
+  return false;
+}
+
+template<class KEY, class VAL, class H, class P, class A>
+bool
+GET_MAP_ELEM_IF_THERE(const KEY & key,
+                      const tr1::unordered_map<KEY,tr1::shared_ptr<VAL>,H,P,A> & m,
+                      VAL * val)
+{
+  typename tr1::unordered_map<KEY,tr1::shared_ptr<VAL>,H,P,A>::const_iterator it
+      = m.find(key);
+    if (it!=m.end())
+    {
+      *val = *(it->second);
+      return true;
+    }
+    return false;
+}
+
+template<class KEY, class VAL, class C, class A>
+bool
+GET_MAP_ELEM_IF_THERE(const KEY & key,
+                      const map<KEY,tr1::shared_ptr<VAL>,C,A> & m,
+                      VAL * val)
+{
+  typename map<KEY,tr1::shared_ptr<VAL>,C,A>::const_iterator it = m.find(key);
+  if (it!=m.end())
+  {
+    *val = *(it->second);
+    return true;
+  }
+  return false;
 }
 
 template<class KEY, class VAL, class H, class P, class A>
