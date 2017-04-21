@@ -23,6 +23,7 @@
 #ifndef VISIONTOOLS_PERFORMANCE_MONITOR_H
 #define VISIONTOOLS_PERFORMANCE_MONITOR_H
 
+#include <list>
 #include <pangolin/pangolin.h>
 
 #include "linear_camera.h"
